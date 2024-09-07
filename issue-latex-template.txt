@@ -1,0 +1,29 @@
+\section*{[<id>] - <title>}\label{subsec:<id>}
+\addcontentsline{toc}{subsection}{[<id>] - <title>}
+\begin{table}[htbp]
+    \centering
+    \renewcommand{\arraystretch}{2}
+    \begin{tabularx}{\textwidth}{|>{\centering\arraybackslash}X|>{\centering\arraybackslash}X|>{\centering\arraybackslash}X|>{\centering\arraybackslash}X|}
+        \hline
+        \multicolumn{1}{|c|}{\textbf{ID}} & \multicolumn{1}{c|}{\textbf{Severity}} & \multicolumn{1}{c|}{\textbf{Category}} & \multicolumn{1}{c|}{\textbf{Status}} \\
+        \hline
+        <id> & \textcolor{<severity-color>}{<severity>}& <category> & -\\
+        \hline
+    \end{tabularx}
+\end{table}
+
+\vspace{-1\baselineskip}
+
+\subsection*{Description}
+<description>
+
+\subsection*{Proof of Concept}
+<proof-of-concept>
+
+\subsection*{Context}
+<context>
+
+\subsection*{Recommendations}
+<recommendations>
+
+\clearpage
