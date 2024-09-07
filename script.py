@@ -75,7 +75,7 @@ def generate_latex_content(template_file, header, description, poc, context, rec
 
 def main():
     # Read the markdown file
-    with open("issue-test.md") as f:
+    with open("issue.md") as f:
         md_file = f.read()
 
     # Parse the markdown file content

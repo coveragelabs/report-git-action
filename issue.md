@@ -1,5 +1,5 @@
 ---
-title: Hacking flashloans
+title: Hacking DeFi
 id: C-01
 severity: Critical
 category: Manual Review
