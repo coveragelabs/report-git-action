@@ -7,7 +7,7 @@ severity_colors_map = {
     "medium": "Dandelion",
     "low": "ForestGreen",
     "informational": "RoyalBlue"
-}
+}    
 
 def extract_header_content(md_file):
     pattern = r"---\s*(.*?)\s*---"
@@ -30,13 +30,27 @@ def extract_header_content(md_file):
 def escape_latex_special_chars(text):
     return text.replace('#', '\\#')
 
+def parse_code_blocks(section_content):
+    pattern = r"```(\w*)\n(.*?)```"
+    latex_code_blocks = re.sub(pattern, r"\\vspace{0.5\\baselineskip}\n\\begin{lstlisting}[language=\1,frame=single,numbers=none]\n\2\n\\end{lstlisting}", section_content, flags=re.DOTALL)
+    return latex_code_blocks
+
+def parse_highlighted_text(section_content):
+    pattern = r"`(.*?)`"    
+    latex_highlighted_text = re.sub(pattern, r"\\texttt{\1}", section_content)
+    return latex_highlighted_text
+
 def extract_section_content(md_file, section_title):
     pattern = rf"##\s*{re.escape(section_title)}\s*(.*?)(##|$)"
 
     match = re.search(pattern, md_file, re.DOTALL)
 
     if match:
-        return match.group(1).strip()
+        section_content = match.group(1).strip()
+        
+        section_content = parse_code_blocks(section_content)
+
+        return parse_highlighted_text(section_content)
     else:
         return None
 
@@ -75,7 +89,7 @@ def generate_latex_content(template_file, header, description, poc, context, rec
 
 def main():
     # Read the markdown file
-    with open("issue.md") as f:
+    with open("template/markdown-issue-template.md") as f:
         md_file = f.read()
 
     # Parse the markdown file content
@@ -86,7 +100,7 @@ def main():
     recommendation = extract_section_content(md_file, "Recommendation")
 
     # Read the latex template
-    with open("issue-latex-template.txt", "r") as f:
+    with open("template/latex-issue-template.txt", "r") as f:
         template_file = f.read()
     
     # Populate the templace with the content extracted from the markdown
@@ -94,9 +108,8 @@ def main():
 
     print(content)
 
-    # Write the populated template to a new tex file
-    with open("issue.tex", "w") as f:
-        f.write(content)
+    # Write the file content to the report file.
+
 
 if __name__ == "__main__":
     main()
