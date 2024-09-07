@@ -93,12 +93,10 @@ def main():
     content = generate_latex_content(template_file, header, description, poc, context, recommendation)
 
     print(content)
-    # \subsection*{Context}
-    # \begin{itemize}
-    # 
-    # \end{itemize}
 
     # Write the populated template to a new tex file
+    with open("issue.tex", "w") as f:
+        f.write(content)
 
 if __name__ == "__main__":
     main()
